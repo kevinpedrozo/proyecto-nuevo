@@ -13,8 +13,8 @@ MONGO_URI = os.getenv("MONGO_URI")
 
 client = MongoClient(MONGO_URI)
 
-db = client["juego"]
-jugadores = db["jugadores"]
+db = client["prueba"]
+jugadores = db["base-datos-sena"]
 
 # Verificar conexión
 try:
