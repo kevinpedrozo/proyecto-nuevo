@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>¡Arena de Combate!</title>
+    <style>
+        body { background: #2c3e50; color: white; text-align: center; font-family: sans-serif; }
+        .arena { display: flex; justify-content: center; gap: 50px; margin-top: 50px; }
+        .barra-vida { width: 200px; height: 20px; background: red; margin: 10px auto; }
+        #vida-jugador, #vida-enemigo { height: 100%; background: lime; width: 100%; transition: 0.3s; }
+    </style>
+</head>
+<body>
+    <h1>¡Arena de Batalla!</h1>
+    <div class="arena">
+        <div>
+            <h3>Tú</h3>
+            <div class="barra-vida"><div id="vida-jugador"></div></div>
+            <button onclick="atacar()">¡ATACAR!</button>
+        </div>
+        <div>
+            <h3>Enemigo</h3>
+            <div class="barra-vida"><div id="vida-enemigo"></div></div>
+        </div>
+    </div>
+
+    <script>
+        let vidaJ = 100, vidaE = 100;
+        function atacar() {
+            vidaE -= 10;
+            document.getElementById('vida-enemigo').style.width = vidaE + "%";
+            if(vidaE <= 0) alert("¡Ganaste!");
+            else setTimeout(ataqueEnemigo, 500);
+        }
+        function ataqueEnemigo() {
+            vidaJ -= 10;
+            document.getElementById('vida-jugador').style.width = vidaJ + "%";
+            if(vidaJ <= 0) alert("¡Perdiste!");
+        }
+    </script>
+</body>
+</html>
