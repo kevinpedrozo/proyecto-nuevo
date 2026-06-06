@@ -2,40 +2,70 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>¡Arena de Combate!</title>
+    <title>¡Duelo Sena Arena!</title>
     <style>
-        body { background: #2c3e50; color: white; text-align: center; font-family: sans-serif; }
-        .arena { display: flex; justify-content: center; gap: 50px; margin-top: 50px; }
-        .barra-vida { width: 200px; height: 20px; background: red; margin: 10px auto; }
-        #vida-jugador, #vida-enemigo { height: 100%; background: lime; width: 100%; transition: 0.3s; }
+        body { background: #1a1a1a; color: white; text-align: center; font-family: 'Arial', sans-serif; }
+        .arena { display: flex; justify-content: center; gap: 40px; margin-top: 30px; padding: 20px; }
+        .box { background: #2c3e50; padding: 20px; border-radius: 15px; width: 250px; }
+        .barra-container { width: 100%; height: 25px; background: #555; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        #jugador-vida, #enemigo-vida { height: 100%; width: 100%; background: #27ae60; transition: 0.4s; }
+        button { padding: 15px 30px; font-size: 18px; cursor: pointer; border: none; border-radius: 8px; background: #e74c3c; color: white; font-weight: bold; }
+        button:hover { background: #c0392b; }
+        #log { margin-top: 20px; font-style: italic; color: #bdc3c7; }
     </style>
 </head>
 <body>
-    <h1>¡Arena de Batalla!</h1>
+    <h1>¡Duelo en la Arena!</h1>
+    
     <div class="arena">
-        <div>
-            <h3>Tú</h3>
-            <div class="barra-vida"><div id="vida-jugador"></div></div>
-            <button onclick="atacar()">¡ATACAR!</button>
+        <div class="box">
+            <h3>Tu Personaje</h3>
+            <div class="barra-container"><div id="jugador-vida"></div></div>
+            <p>HP: <span id="jugador-hp">100</span></p>
         </div>
-        <div>
-            <h3>Enemigo</h3>
-            <div class="barra-vida"><div id="vida-enemigo"></div></div>
+        
+        <div class="box">
+            <h3>Jefe Sena</h3>
+            <div class="barra-container"><div id="enemigo-vida"></div></div>
+            <p>HP: <span id="enemigo-hp">100</span></p>
         </div>
     </div>
 
+    <button onclick="realizarAtaque()">¡ATACAR CON TODO!</button>
+    <div id="log">Preparado para el combate...</div>
+
     <script>
-        let vidaJ = 100, vidaE = 100;
-        function atacar() {
-            vidaE -= 10;
-            document.getElementById('vida-enemigo').style.width = vidaE + "%";
-            if(vidaE <= 0) alert("¡Ganaste!");
-            else setTimeout(ataqueEnemigo, 500);
+        let pHP = 100, eHP = 100;
+
+        function realizarAtaque() {
+            if(pHP <= 0 || eHP <= 0) return;
+
+            // Daño aleatorio entre 5 y 15
+            let dmg = Math.floor(Math.random() * 10) + 5;
+            eHP -= dmg;
+            document.getElementById('enemigo-hp').innerText = eHP;
+            document.getElementById('enemigo-vida').style.width = eHP + "%";
+            document.getElementById('log').innerText = "¡Golpeaste al jefe por " + dmg + " de daño!";
+
+            if(eHP <= 25) document.getElementById('enemigo-vida').style.background = "#e74c3c";
+
+            if(eHP > 0) {
+                setTimeout(turnoEnemigo, 600);
+            } else {
+                document.getElementById('log').innerText = "¡VICTORIA! El jefe ha sido derrotado.";
+            }
         }
-        function ataqueEnemigo() {
-            vidaJ -= 10;
-            document.getElementById('vida-jugador').style.width = vidaJ + "%";
-            if(vidaJ <= 0) alert("¡Perdiste!");
+
+        function turnoEnemigo() {
+            let dmg = Math.floor(Math.random() * 12) + 3;
+            pHP -= dmg;
+            document.getElementById('jugador-hp').innerText = pHP;
+            document.getElementById('jugador-vida').style.width = pHP + "%";
+            if(pHP <= 25) document.getElementById('jugador-vida').style.background = "#e74c3c";
+            
+            if(pHP <= 0) {
+                document.getElementById('log').innerText = "¡DERROTA! Has caído en combate.";
+            }
         }
     </script>
 </body>
