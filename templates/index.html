@@ -46,6 +46,14 @@
             <input type="text" name="documento" placeholder="Documento" required>
             <button type="submit" class="btn btn-guardar">Guardar Registro</button>
         </form>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+        <div style="text-align: center;">
+            <a href="/estudiantes" target="_blank" class="btn" style="background: #9b59b6; color: white;">
+                Ver Base de Datos (JSON)
+            </a>
+        </div>
+    </div>
 
         {% if registro_exitoso %}
             <a href="/juego" class="btn btn-exito">¡Registro Exitoso! (¡A pelear!)</a>
