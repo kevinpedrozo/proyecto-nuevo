@@ -2,72 +2,58 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Estudiantes</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #3498db; --bg-glass: rgba(255, 255, 255, 0.95); }
-        body {
-            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex; flex-direction: column; align-items: center; padding: 40px 20px; min-height: 100vh;
+        :root { --primary: #2c3e50; --accent: #3498db; }
+        body { 
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80'); 
+            background-size: cover; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; min-height: 100vh;
         }
-        .contenedor, .tabla-contenedor {
-            background: var(--bg-glass); width: 100%; max-width: 800px; padding: 30px;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 30px;
-        }
-        h2 { color: var(--primary); text-align: center; margin-bottom: 25px; }
-        input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #dee2e6; border-radius: 6px; box-sizing: border-box; }
-        .btn-guardar { width: 100%; padding: 14px; border: none; border-radius: 6px; background: var(--accent); color: white; font-weight: bold; cursor: pointer; }
-        .mensaje { background: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-weight: 600; }
+        .contenedor, .tabla-contenedor { background: rgba(255, 255, 255, 0.95); width: 100%; max-width: 800px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 30px; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th { background: #f8f9fa; color: #7f8c8d; text-transform: uppercase; font-size: 12px; padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; }
-        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; }
-        tr:hover { background: #f1f7fe; }
+        th { background: #f8f9fa; padding: 12px; text-align: left; border-bottom: 2px solid #ddd; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
     </style>
 </head>
 <body>
 
     <div class="contenedor">
         <h2>Registro de Estudiantes</h2>
-        <% if (locals.mensaje) { %>
-            <div class="mensaje"><%= mensaje %></div>
-        <% } %>
-        <form action="/" method="POST">
-            <input type="text" name="nombre" placeholder="Nombre Completo" required>
-            <input type="email" name="correo" placeholder="Correo Electrónico" required>
-            <input type="text" name="documento" placeholder="Número de Documento" required>
-            <button type="submit" class="btn-guardar">Guardar Registro</button>
-        </form>
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="email" id="correo" placeholder="Correo">
+        <input type="text" id="doc" placeholder="Documento">
+        <button onclick="agregarEstudiante()">Guardar Registro</button>
     </div>
 
     <div class="tabla-contenedor">
         <h2>Personal Registrado</h2>
-        <table>
+        <table id="tablaEstudiantes">
             <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Documento</th>
-                </tr>
+                <tr><th>Nombre</th><th>Correo</th><th>Documento</th></tr>
             </thead>
-            <tbody>
-                <% if (estudiantes && estudiantes.length > 0) { %>
-                    <% estudiantes.forEach(function(estudiante) { %>
-                        <tr>
-                            <td><%= estudiante.nombre %></td>
-                            <td><%= estudiante.correo %></td>
-                            <td><%= estudiante.documento %></td>
-                        </tr>
-                    <% }); %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="3" style="text-align:center;">No hay registros disponibles.</td>
-                    </tr>
-                <% } %>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 
+    <script>
+        function agregarEstudiante() {
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const doc = document.getElementById('doc').value;
+
+            if(!nombre || !correo || !doc) return alert("Completa los campos");
+
+            const tbody = document.querySelector('#tablaEstudiantes tbody');
+            const fila = `<tr><td>${nombre}</td><td>${correo}</td><td>${doc}</td></tr>`;
+            tbody.innerHTML += fila;
+
+            // Limpiar campos
+            document.getElementById('nombre').value = '';
+            document.getElementById('correo').value = '';
+            document.getElementById('doc').value = '';
+        }
+    </script>
 </body>
 </html>
