@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Estudiantes</title>
+    <title>Registro y Arena</title>
     <style>
         body { 
             background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center center fixed; 
@@ -25,11 +25,16 @@
         }
         h2 { color: #2c3e50; text-align: center; margin-bottom: 20px; }
         input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #dee2e6; border-radius: 6px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
+        
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; margin-bottom: 10px; transition: 0.3s; }
         .btn-guardar { background: #3498db; color: white; }
-        .btn-exito { background: #27ae60; color: white; margin-top: 10px; }
-        .btn-ver { background: #e67e22; color: white; margin-top: 10px; }
-        .mensaje { text-align: center; padding: 10px; margin-bottom: 15px; font-weight: bold; color: #2c3e50; }
+        .btn-guardar:hover { background: #2980b9; }
+        
+        .btn-exito { background: #27ae60; color: white; }
+        .btn-ver { background: #9b59b6; color: white; }
+        .btn-alerta { background: #e67e22; color: white; }
+        
+        .mensaje { text-align: center; padding: 10px; margin-bottom: 15px; border-radius: 6px; font-weight: bold; color: #34495e; background: #ecf0f1; }
     </style>
 </head>
 <body>
@@ -46,22 +51,16 @@
             <input type="text" name="documento" placeholder="Documento" required>
             <button type="submit" class="btn btn-guardar">Guardar Registro</button>
         </form>
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-
-        <div style="text-align: center;">
-            <a href="/estudiantes" target="_blank" class="btn" style="background: #9b59b6; color: white;">
-                Ver Base de Datos (JSON)
-            </a>
-        </div>
-    </div>
 
         {% if registro_exitoso %}
             <a href="/juego" class="btn btn-exito">¡Registro Exitoso! (¡A pelear!)</a>
         {% endif %}
 
         {% if mostrar_ver %}
-            <a href="/estudiantes" target="_blank" class="btn btn-ver">Ver Registros Existentes</a>
+            <a href="/estudiantes" target="_blank" class="btn btn-alerta">Ver registros existentes</a>
         {% endif %}
+
+        <a href="/estudiantes" target="_blank" class="btn btn-ver">Ver Base de Datos Completa</a>
     </div>
 </body>
 </html>
