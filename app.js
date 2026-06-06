@@ -18,7 +18,7 @@ const Estudiante = mongoose.model('Estudiante', {
 // CONSULTA: Aquí es donde traes los datos de la base de datos
 app.get('/', async (req, res) => {
     try {
-        const lista = await Estudiante.find(); // ESTA LÍNEA HACE LA MAGIA
+        const lista = await Estudiante.find(); 
         res.render('index', { estudiantes: lista, mensaje: null });
     } catch (err) {
         res.send("Error al consultar la base de datos");
