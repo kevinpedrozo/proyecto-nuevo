@@ -1,10 +1,8 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 from pymongo import MongoClient
-import random
 import os
 
 app = Flask(__name__)
-app.secret_key = "clave-super-secreta"
 
 # ==========================
 # CONEXIÓN A MONGODB
@@ -14,7 +12,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 
 db = client["prueba"]
-jugadores = db["base-datos-sena"]
+estudiantes = db["base-datos-sena"]
 
 # Verificar conexión
 try:
@@ -24,60 +22,37 @@ except Exception as e:
     print("Error de conexión:", e)
 
 # ==========================
-# JUEGO
+# FORMULARIO PRINCIPAL
 # ==========================
 @app.route("/", methods=["GET", "POST"])
 def index():
-
-    if "numero" not in session:
-        session["numero"] = random.randint(1, 100)
-
-    if "veces" not in session:
-        session["veces"] = 0
 
     mensaje = ""
 
     if request.method == "POST":
 
-        try:
-            intento = int(request.form["intento"])
+        nombre = request.form["nombre"]
+        correo = request.form["correo"]
+        documento = request.form["documento"]
 
-            numero = session["numero"]
+        # Verificar si ya existe el documento
+        existe = estudiantes.find_one({
+            "documento": documento
+        })
 
-            session["veces"] += 1
+        if existe:
 
-            if intento < numero:
+            mensaje = "El estudiante ya está registrado"
 
-                mensaje = "El número es MAYOR."
+        else:
 
-            elif intento > numero:
+            estudiantes.insert_one({
+                "nombre": nombre,
+                "correo": correo,
+                "documento": documento
+            })
 
-                mensaje = "El número es MENOR."
-
-            else:
-
-                nombre = request.form.get(
-                    "nombre",
-                    "Anónimo"
-                )
-
-                jugadores.insert_one({
-                    "nombre": nombre,
-                    "intentos": session["veces"]
-                })
-
-                mensaje = (
-                    f"¡Adivinaste! {nombre} "
-                    f"lo lograste en "
-                    f"{session['veces']} oportunidades."
-                )
-
-                session["numero"] = random.randint(1, 100)
-                session["veces"] = 0
-
-        except ValueError:
-
-            mensaje = "Ingresa un número válido."
+            mensaje = "Estudiante registrado correctamente"
 
     return render_template(
         "index.html",
@@ -85,34 +60,35 @@ def index():
     )
 
 # ==========================
-# PRUEBA DE MONGODB
+# VER REGISTROS
 # ==========================
-@app.route("/testmongo")
-def testmongo():
-
-    jugadores.insert_one({
-        "nombre": "Kevin",
-        "intentos": 1
-    })
-
-    return "Guardado correctamente"
-
-# ==========================
-# VER JUGADORES
-# ==========================
-@app.route("/jugadores")
-def ver_jugadores():
+@app.route("/estudiantes")
+def ver_estudiantes():
 
     lista = list(
-        jugadores.find(
+        estudiantes.find(
             {},
             {"_id": 0}
         )
     )
 
     return {
-        "jugadores": lista
+        "estudiantes": lista
     }
+
+# ==========================
+# PRUEBA DE CONEXIÓN
+# ==========================
+@app.route("/testmongo")
+def testmongo():
+
+    estudiantes.insert_one({
+        "nombre": "Prueba",
+        "correo": "prueba@correo.com",
+        "documento": "0000"
+    })
+
+    return "MongoDB funcionando correctamente"
 
 # ==========================
 # INICIAR APP
