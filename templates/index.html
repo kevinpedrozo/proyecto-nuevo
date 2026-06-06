@@ -2,100 +2,148 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Estudiantes</title>
 
     <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         body{
-            font-family: Arial, sans-serif;
-            background:#f4f4f4;
+            background:#f4f6f9;
             display:flex;
             justify-content:center;
             align-items:center;
-            height:100vh;
+            min-height:100vh;
         }
 
         .contenedor{
             background:white;
+            width:400px;
             padding:30px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.2);
-            width:350px;
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
         }
 
         h2{
             text-align:center;
+            margin-bottom:20px;
+            color:#333;
         }
 
         input{
             width:100%;
-            padding:10px;
-            margin:8px 0;
-            box-sizing:border-box;
+            padding:12px;
+            margin-bottom:15px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:15px;
         }
 
-        button{
+        input:focus{
+            outline:none;
+            border-color:#007bff;
+        }
+
+        .btn{
             width:100%;
-            padding:10px;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:15px;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .btn-guardar{
             background:#007bff;
             color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
         }
 
-        button:hover{
+        .btn-guardar:hover{
             background:#0056b3;
         }
 
-        .mensaje{
+        .btn-ver{
+            display:block;
+            width:100%;
             text-align:center;
-            margin-top:10px;
+            text-decoration:none;
+            background:#28a745;
+            color:white;
+            padding:12px;
+            border-radius:8px;
             font-weight:bold;
         }
+
+        .btn-ver:hover{
+            background:#218838;
+        }
+
+        .mensaje{
+            margin-top:15px;
+            text-align:center;
+            font-weight:bold;
+            color:#333;
+        }
+
     </style>
+
 </head>
 <body>
 
-<div class="contenedor">
+    <div class="contenedor">
 
-    <h2>Registro de Estudiantes</h2>
+        <h2>Registro de Estudiantes</h2>
 
-    <form method="POST">
+        <form method="POST">
 
-        <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre Completo"
-            required
-        >
+            <input
+                type="text"
+                name="nombre"
+                placeholder="Nombre Completo"
+                required
+            >
 
-        <input
-            type="email"
-            name="correo"
-            placeholder="Correo Electrónico"
-            required
-        >
+            <input
+                type="email"
+                name="correo"
+                placeholder="Correo Electrónico"
+                required
+            >
 
-        <input
-            type="text"
-            name="documento"
-            placeholder="Número de Documento"
-            required
-        >
+            <input
+                type="text"
+                name="documento"
+                placeholder="Número de Documento"
+                required
+            >
 
-        <button type="submit">
-            Guardar Registro
-        </button>
+            <button
+                type="submit"
+                class="btn btn-guardar">
+                Guardar Registro
+            </button>
 
-    </form>
+        </form>
 
-    {% if mensaje %}
-        <div class="mensaje">
-            {{ mensaje }}
-        </div>
-    {% endif %}
+        <a href="/estudiantes" class="btn-ver">
+            Ver Estudiantes Registrados
+        </a>
 
-</div>
+        {% if mensaje %}
+            <div class="mensaje">
+                {{ mensaje }}
+            </div>
+        {% endif %}
+
+    </div>
 
 </body>
 </html>
