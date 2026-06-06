@@ -4,11 +4,17 @@ import os
 
 app = Flask(__name__)
 
-# Conexión a MongoDB Atlas
+# ==========================
+# CONEXIÓN A MONGODB
+# ==========================
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["prueba"]
 estudiantes = db["base-datos-sena"]
+
+# ==========================
+# RUTAS DE LA APLICACIÓN
+# ==========================
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -43,11 +49,19 @@ def index():
         mostrar_ver=mostrar_ver
     )
 
+# Ruta para ver los registros
 @app.route("/estudiantes")
 def ver_estudiantes():
-    # Retornamos una lista simple para ver los datos
     lista = list(estudiantes.find({}, {"_id": 0}))
     return {"estudiantes": lista}
 
+# Nueva ruta para el juego
+@app.route("/juego")
+def juego():
+    return render_template("juego.html")
+
+# ==========================
+# INICIAR APP
+# ==========================
 if __name__ == "__main__":
     app.run(debug=True)
