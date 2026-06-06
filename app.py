@@ -11,7 +11,7 @@ app.secret_key = "clave-super-secreta"
 # ==========================
 MONGO_URI = os.getenv("MONGO_URI")
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(mongodb+srv://kevin:rhLLyfdM3CTyhXBV@cluster0.oowbmus.mongodb.net/?appName=Cluster0)
 
 db = client["prueba"]
 jugadores = db["base-datos-sena"]
