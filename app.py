@@ -113,3 +113,12 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000))
     )
+    @app.route("/testmongo")
+def testmongo():
+
+    jugadores.insert_one({
+        "nombre": "Kevin",
+        "intentos": 1
+    })
+
+    return "Guardado correctamente"
