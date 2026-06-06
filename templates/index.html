@@ -2,51 +2,90 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Gestión de Estudiantes</title>
+    <title>Panel Administrativo - Registro</title>
     <style>
         :root {
-            --oficina-navy: #2c3e50;
-            --oficina-azul: #34495e;
-            --oficina-accent: #2980b9;
-            --oficina-success: #27ae60;
-            --oficina-gray: #bdc3c7;
+            --navy-dark: #2c3e50;
+            --steel-gray: #f4f6f7;
+            --accent-blue: #2980b9;
         }
-        body { 
-            background: #f4f7f6; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; 
+
+        body {
+            /* Imagen de fondo de oficina moderna */
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
-        .contenedor { 
-            background: #ffffff; width: 100%; max-width: 450px; padding: 40px; 
-            border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            border-top: 5px solid var(--oficina-navy);
+
+        .contenedor {
+            background: rgba(255, 255, 255, 0.98);
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 6px solid var(--navy-dark);
         }
-        h2 { color: var(--oficina-navy); text-align: center; margin-bottom: 25px; font-weight: 600; }
-        input { 
-            width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; 
-            border-radius: 2px; box-sizing: border-box; 
+
+        h2 { 
+            color: var(--navy-dark); 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        
-        .btn { 
-            width: 100%; padding: 12px; border: none; border-radius: 2px; 
-            font-weight: 600; cursor: pointer; text-decoration: none; display: block; 
-            text-align: center; margin-bottom: 10px; text-transform: uppercase; font-size: 13px;
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            box-sizing: border-box;
+            background: #fcfcfc;
         }
-        .btn-guardar { background: var(--oficina-navy); color: white; }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 2px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-bottom: 12px;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-guardar { background: var(--navy-dark); color: white; }
         .btn-guardar:hover { background: #34495e; }
-        
-        .btn-exito { background: var(--oficina-success); color: white; }
-        .btn-ver { background: var(--oficina-accent); color: white; }
-        .btn-alerta { background: #d35400; color: white; }
-        
-        .mensaje { 
-            text-align: center; padding: 10px; margin-bottom: 15px; 
-            font-size: 14px; font-weight: bold; color: var(--oficina-navy); 
-            background: #f9f9f9; border-left: 4px solid var(--oficina-navy);
+
+        .btn-exito { background: #27ae60; color: white; }
+        .btn-ver { background: var(--accent-blue); color: white; }
+        .btn-alerta { background: #e67e22; color: white; }
+
+        .mensaje {
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #555;
+            background: #eef2f3;
+            border-left: 4px solid var(--navy-dark);
         }
     </style>
 </head>
 <body>
+
     <div class="contenedor">
         <h2>Panel de Registro</h2>
         
@@ -55,21 +94,22 @@
         {% endif %}
 
         <form action="/" method="POST">
-            <input type="text" name="nombre" placeholder="Nombre completo" required>
-            <input type="email" name="correo" placeholder="Correo institucional" required>
-            <input type="text" name="documento" placeholder="Número de identificación" required>
-            <button type="submit" class="btn btn-guardar">Registrar Estudiante</button>
+            <input type="text" name="nombre" placeholder="Nombre del Estudiante" required>
+            <input type="email" name="correo" placeholder="Correo Electrónico" required>
+            <input type="text" name="documento" placeholder="Documento de Identidad" required>
+            <button type="submit" class="btn btn-guardar">REGISTRAR ESTUDIANTE</button>
         </form>
 
         {% if registro_exitoso %}
-            <a href="/juego" class="btn btn-exito">Acceder al sistema de evaluación</a>
+            <a href="/juego" class="btn btn-exito">ACCEDER A EVALUACIÓN</a>
         {% endif %}
 
         {% if mostrar_ver %}
-            <a href="/estudiantes" target="_blank" class="btn btn-alerta">Ver registros existentes</a>
+            <a href="/estudiantes" target="_blank" class="btn btn-alerta">VER REGISTRO DUPLICADO</a>
         {% endif %}
 
-        <a href="/estudiantes" target="_blank" class="btn btn-ver">Consulta de base de datos</a>
+        <a href="/estudiantes" target="_blank" class="btn btn-ver">CONSULTA DE BASE DE DATOS</a>
     </div>
+
 </body>
 </html>
