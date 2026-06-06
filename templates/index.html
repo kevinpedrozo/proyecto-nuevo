@@ -4,145 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Estudiantes</title>
-
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family: Arial, Helvetica, sans-serif;
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --success: #27ae60;
+            --bg: #f8f9fa;
         }
 
-        body{
-            background:#f4f6f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
+        body {
+            background: var(--bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
         }
 
-        .contenedor{
-            background:white;
-            width:400px;
-            padding:30px;
-            border-radius:15px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        /* --- Estilo Formulario --- */
+        .contenedor {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
         }
 
-        h2{
-            text-align:center;
-            margin-bottom:20px;
-            color:#333;
+        h2 { color: var(--primary); margin-bottom: 25px; text-align: center; }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
-        input{
-            width:100%;
-            padding:12px;
-            margin-bottom:15px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            font-size:15px;
+        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(52,152,219,0.1); }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
         }
 
-        input:focus{
-            outline:none;
-            border-color:#007bff;
+        .btn-guardar { background: var(--accent); color: white; }
+        .btn-guardar:hover { background: #2980b9; }
+
+        .btn-ver {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background: #ecf0f1;
+            color: var(--primary);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 13px;
         }
 
-        .btn{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            font-size:15px;
-            font-weight:bold;
-            margin-bottom:10px;
+        /* --- Diseño de Tabla Oficina --- */
+        .tabla-contenedor {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .btn-guardar{
-            background:#007bff;
-            color:white;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
 
-        .btn-guardar:hover{
-            background:#0056b3;
-        }
-
-        .btn-ver{
-            display:block;
-            width:100%;
-            text-align:center;
-            text-decoration:none;
-            background:#28a745;
-            color:white;
-            padding:12px;
-            border-radius:8px;
-            font-weight:bold;
-        }
-
-        .btn-ver:hover{
-            background:#218838;
-        }
-
-        .mensaje{
-            margin-top:15px;
-            text-align:center;
-            font-weight:bold;
-            color:#333;
-        }
-
+        th { background: #f8f9fa; color: #7f8c8d; text-transform: uppercase; font-size: 12px; padding: 15px; text-align: left; border-bottom: 2px solid #eee; }
+        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; color: #2c3e50; }
+        tr:hover { background: #f1f7fe; }
     </style>
-
 </head>
 <body>
 
     <div class="contenedor">
-
         <h2>Registro de Estudiantes</h2>
-
         <form method="POST">
-
-            <input
-                type="text"
-                name="nombre"
-                placeholder="Nombre Completo"
-                required
-            >
-
-            <input
-                type="email"
-                name="correo"
-                placeholder="Correo Electrónico"
-                required
-            >
-
-            <input
-                type="text"
-                name="documento"
-                placeholder="Número de Documento"
-                required
-            >
-
-            <button
-                type="submit"
-                class="btn btn-guardar">
-                Guardar Registro
-            </button>
-
+            <input type="text" name="nombre" placeholder="Nombre Completo" required>
+            <input type="email" name="correo" placeholder="Correo Electrónico" required>
+            <input type="text" name="documento" placeholder="Número de Documento" required>
+            <button type="submit" class="btn btn-guardar">Guardar Registro</button>
         </form>
+        <a href="/estudiantes" class="btn-ver">Ver Estudiantes Registrados</a>
+    </div>
 
-        <a href="/estudiantes" class="btn-ver">
-            Ver Estudiantes Registrados
-        </a>
-
-        {% if mensaje %}
-            <div class="mensaje">
-                {{ mensaje }}
-            </div>
-        {% endif %}
-
+    <div class="tabla-contenedor">
+        <h2>Listado de Personal</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Documento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Juan Pérez</td>
+                    <td>juan@ejemplo.com</td>
+                    <td>1020304050</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </body>
