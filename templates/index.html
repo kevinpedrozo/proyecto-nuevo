@@ -50,9 +50,18 @@
 
         .btn-guardar:hover { background: #2980b9; }
 
-        /* Estilo del botón de éxito */
+        /* Estilo para los mensajes */
+        .mensaje {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Estilo del botón de éxito condicional */
         #btn-exito {
-            display: none; /* Oculto por defecto */
+            display: block;
             width: 100%;
             padding: 14px;
             margin-top: 15px;
@@ -71,6 +80,10 @@
     <div class="contenedor">
         <h2>Registro de Estudiantes</h2>
         
+        {% if mensaje %}
+            <div class="mensaje">{{ mensaje }}</div>
+        {% endif %}
+
         <form action="/" method="POST">
             <input type="text" name="nombre" placeholder="Nombre" required>
             <input type="email" name="correo" placeholder="Correo" required>
@@ -79,9 +92,9 @@
         </form>
 
         {% if registro_exitoso %}
-        <a href="#" id="btn-exito" style="display: block;">
-            ¡Registro Exitoso!
-        </a>
+            <a href="#" id="btn-exito">
+                ¡Registro Exitoso!
+            </a>
         {% endif %}
     </div>
 
