@@ -2,11 +2,28 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Estudiantes</title>
     <style>
-        body { background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center center fixed; background-size: cover; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .contenedor { background: rgba(255, 255, 255, 0.95); width: 100%; max-width: 450px; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        h2 { color: #2c3e50; text-align: center; }
+        body { 
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center center fixed; 
+            background-size: cover; 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .contenedor { 
+            background: rgba(255, 255, 255, 0.95); 
+            width: 100%; 
+            max-width: 450px; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        }
+        h2 { color: #2c3e50; text-align: center; margin-bottom: 20px; }
         input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #dee2e6; border-radius: 6px; box-sizing: border-box; }
         .btn { width: 100%; padding: 14px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; text-align: center; }
         .btn-guardar { background: #3498db; color: white; }
@@ -31,11 +48,11 @@
         </form>
 
         {% if registro_exitoso %}
-            <a href="#" class="btn btn-exito">¡Registro Exitoso!</a>
+            <a href="/juego" class="btn btn-exito">¡Registro Exitoso! (¡A pelear!)</a>
         {% endif %}
 
         {% if mostrar_ver %}
-            <a href="/estudiantes" target="_blank" class="btn btn-ver">Ver Registros</a>
+            <a href="/estudiantes" target="_blank" class="btn btn-ver">Ver Registros Existentes</a>
         {% endif %}
     </div>
 </body>
