@@ -49,13 +49,13 @@ def index():
         mostrar_ver=mostrar_ver
     )
 
-# Ruta para ver los registros
+# Ruta mejorada para visualizar en tabla
 @app.route("/estudiantes")
 def ver_estudiantes():
     lista = list(estudiantes.find({}, {"_id": 0}))
-    return {"estudiantes": lista}
+    return render_template("lista.html", estudiantes=lista)
 
-# Nueva ruta para el juego
+# Ruta del juego
 @app.route("/juego")
 def juego():
     return render_template("juego.html")
