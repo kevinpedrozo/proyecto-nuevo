@@ -24,7 +24,7 @@ except Exception as e:
     print("Error de conexión:", e)
 
 # ==========================
-# RUTA PRINCIPAL
+# JUEGO
 # ==========================
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -44,10 +44,7 @@ def index():
 
             numero = session["numero"]
 
-            veces_actual = int(session.get("veces", 0))
-            veces_actual += 1
-
-            session["veces"] = veces_actual
+            session["veces"] += 1
 
             if intento < numero:
 
@@ -64,7 +61,6 @@ def index():
                     "Anónimo"
                 )
 
-                # Guardar ganador en MongoDB
                 jugadores.insert_one({
                     "nombre": nombre,
                     "intentos": session["veces"]
@@ -89,6 +85,19 @@ def index():
     )
 
 # ==========================
+# PRUEBA DE MONGODB
+# ==========================
+@app.route("/testmongo")
+def testmongo():
+
+    jugadores.insert_one({
+        "nombre": "Kevin",
+        "intentos": 1
+    })
+
+    return "Guardado correctamente"
+
+# ==========================
 # VER JUGADORES
 # ==========================
 @app.route("/jugadores")
@@ -106,19 +115,10 @@ def ver_jugadores():
     }
 
 # ==========================
-# EJECUTAR APP
+# INICIAR APP
 # ==========================
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000))
     )
-    @app.route("/testmongo")
-def testmongo():
-
-    jugadores.insert_one({
-        "nombre": "Kevin",
-        "intentos": 1
-    })
-
-    return "Guardado correctamente"
