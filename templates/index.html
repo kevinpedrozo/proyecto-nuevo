@@ -8,12 +8,13 @@
         :root {
             --primary: #2c3e50;
             --accent: #3498db;
-            --success: #27ae60;
-            --bg: #f8f9fa;
+            --bg-glass: rgba(255, 255, 255, 0.95);
         }
 
         body {
-            background: var(--bg);
+            /* Imagen de fondo tipo oficina */
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
@@ -22,15 +23,14 @@
             min-height: 100vh;
         }
 
-        /* --- Estilo Formulario --- */
-        .contenedor {
-            background: white;
+        .contenedor, .tabla-contenedor {
+            background: var(--bg-glass);
             width: 100%;
-            max-width: 450px;
+            max-width: 800px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
         }
 
         h2 { color: var(--primary); margin-bottom: 25px; text-align: center; }
@@ -41,57 +41,36 @@
             margin-bottom: 15px;
             border: 1px solid #dee2e6;
             border-radius: 6px;
-            font-size: 14px;
-            transition: 0.3s;
         }
 
-        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(52,152,219,0.1); }
-
-        .btn {
+        .btn-guardar {
             width: 100%;
             padding: 14px;
             border: none;
             border-radius: 6px;
+            background: var(--accent);
+            color: white;
+            font-weight: bold;
             cursor: pointer;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             transition: 0.3s;
         }
 
-        .btn-guardar { background: var(--accent); color: white; }
         .btn-guardar:hover { background: #2980b9; }
 
-        .btn-ver {
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            background: #ecf0f1;
-            color: var(--primary);
+        .mensaje {
+            background: #d4edda;
+            color: #155724;
             padding: 12px;
             border-radius: 6px;
-            margin-top: 15px;
-            font-size: 13px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
         }
 
-        /* --- Diseño de Tabla Oficina --- */
-        .tabla-contenedor {
-            width: 90%;
-            max-width: 800px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th { background: #f8f9fa; color: #7f8c8d; text-transform: uppercase; font-size: 12px; padding: 15px; text-align: left; border-bottom: 2px solid #eee; }
-        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; color: #2c3e50; }
+        /* Diseño tabla */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: #f8f9fa; color: #7f8c8d; text-transform: uppercase; font-size: 12px; padding: 15px; text-align: left; border-bottom: 2px solid #dee2e6; }
+        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 14px; }
         tr:hover { background: #f1f7fe; }
     </style>
 </head>
@@ -99,17 +78,21 @@
 
     <div class="contenedor">
         <h2>Registro de Estudiantes</h2>
+        
+        {% if mensaje %}
+            <div class="mensaje">{{ mensaje }}</div>
+        {% endif %}
+
         <form method="POST">
             <input type="text" name="nombre" placeholder="Nombre Completo" required>
             <input type="email" name="correo" placeholder="Correo Electrónico" required>
             <input type="text" name="documento" placeholder="Número de Documento" required>
-            <button type="submit" class="btn btn-guardar">Guardar Registro</button>
+            <button type="submit" class="btn-guardar">Guardar Registro</button>
         </form>
-        <a href="/estudiantes" class="btn-ver">Ver Estudiantes Registrados</a>
     </div>
 
     <div class="tabla-contenedor">
-        <h2>Listado de Personal</h2>
+        <h2>Personal Registrado</h2>
         <table>
             <thead>
                 <tr>
@@ -119,11 +102,17 @@
                 </tr>
             </thead>
             <tbody>
+                {% for estudiante in estudiantes %}
                 <tr>
-                    <td>Juan Pérez</td>
-                    <td>juan@ejemplo.com</td>
-                    <td>1020304050</td>
+                    <td>{{ estudiante.nombre }}</td>
+                    <td>{{ estudiante.correo }}</td>
+                    <td>{{ estudiante.documento }}</td>
                 </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3" style="text-align:center;">No hay registros disponibles.</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
